@@ -42,6 +42,8 @@ public:
 
     void search();
 
+    std::string getAlgoName();
+
     ~BoyersMoore();
 };
 

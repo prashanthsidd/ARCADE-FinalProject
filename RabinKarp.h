@@ -41,6 +41,8 @@ public:
 
     //  implement match function. Do we need a shift function?
     void search();
+
+    std::string getAlgoName();
 };
 
 

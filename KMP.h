@@ -32,6 +32,8 @@ public:
 
     void search();
 
+    std::string getAlgoName();
+
 };
 
 #endif //ARCADE_FINALPROJECT_KMP_H

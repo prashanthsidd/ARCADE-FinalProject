@@ -104,6 +104,10 @@ void BoyersMoore::gsPreprocess2(){
     }
 }
 
+std::string BoyersMoore::getAlgoName(){
+    return "Boyer Moore";
+}
+
 BoyersMoore::~BoyersMoore() {
     delete []f;
     delete []s;

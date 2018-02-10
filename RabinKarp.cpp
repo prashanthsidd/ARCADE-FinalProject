@@ -59,11 +59,14 @@ void RabinKarp::search(){
     for (int i = 0; i <= textLen - patternLen; ++i) {
 
         //check for hash and string match
-        if(patternHash == currentHash && pattern.compare(0, patternLen, text, i, patternLen) == 0){
+        if (patternHash == currentHash && pattern.compare(0, patternLen, text, i, patternLen) == 0) {
             std::cout << "string match at pos :: " << i << std::endl;
         }
 
         updateHash(text[i], text[i + patternLen]);
-
     }
+}
+
+std::string RabinKarp::getAlgoName(){
+    return "Rabin Karp";
 }

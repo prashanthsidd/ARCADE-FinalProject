@@ -68,3 +68,7 @@ void KMP::search() {
     }
 
 }
+
+std::string KMP::getAlgoName(){
+    return "KMP";
+}
