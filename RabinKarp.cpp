@@ -30,6 +30,7 @@ void RabinKarp::init(std::string& text, std::string& pattern){
     this->pattern = pattern;
     patternLen = pattern.length();
 
+    largestPow = 1;
     currentHash = 0;
     patternHash = 0;
 

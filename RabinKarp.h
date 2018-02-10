@@ -17,9 +17,9 @@ class RabinKarp: public StringSearch {
     unsigned patternLen;
     long long currentHash;
     long long patternHash;
-    int base = 256;
+    const int base = 256;
     const unsigned moduloPrime = 101;
-    long long largestPow = 1;
+    long long largestPow;
 
 public:
 

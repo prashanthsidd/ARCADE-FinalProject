@@ -45,7 +45,7 @@ void interactive(){
         std::cout << "Enter pattern string : ";
         getline(cin, pattern);
 
-        std::cout<< "Enter\n 1 for Rabin Karp\n 2 for KMP\n 3 for Boyer Moore\n 4 to go back : ";
+        std::cout<< "Enter\n 1 for Rabin Karp\n 2 for KMP\n 3 for Boyer Moore\n 4 to go back :";
         getline(cin, inp);
         stringstream(inp) >> algo;
 
@@ -124,7 +124,7 @@ void batch(){
     for (int i = 0; i < 3; ++i) {
         cout<< "Running " << searchAlgos[i]->getAlgoName()<< endl;
         std::chrono::duration<double, std::milli> avgSeconds;
-        for (int j = 0; j < 100; ++j) {
+        for (int j = 0; j < 1; ++j) {
 
             auto start = std::chrono::system_clock::now();
 
@@ -140,14 +140,21 @@ void batch(){
                   << " for 100 runs with pattern lenght " << pattern.length()
                   << " and text length " << text.length() << " : " << avgSeconds.count() << " ms \n\n";
     }
+
+    //Free the memory allocated to search algos
+    for (int l = 0; l < searchAlgos.size(); ++l) {
+        delete searchAlgos[l];
+    }
 }
 
 int main() {
     int mode;
-
+    std::string inp;
     while (1){
         std::cout<< "Enter:\n    1 for interactive mode\n    2 for batch mode\n    3 to terminate : ";
-        cin >> mode;
+        getline(cin, inp);
+        stringstream(inp) >> mode;
+
         switch (mode){
             case 1: interactive();
                 break;
