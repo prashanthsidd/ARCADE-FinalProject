@@ -50,6 +50,9 @@ void BoyersMoore::search(){
         }
     }
 
+    delete []f;
+    delete []s;
+    delete []occ;
 }
 
 void BoyersMoore::bcPreprocess(){

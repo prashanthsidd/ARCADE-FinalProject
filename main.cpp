@@ -8,9 +8,16 @@
 #include "KMP.h"
 #include "RabinKarp.h"
 
+
+#define stepSize 5
+#define minPatSize 5
+#define maxPatSize 20
+
 using namespace std;
 
 class srcPatLenError{};
+
+string getPatternString(unsigned len);
 
 string ReadFromFile (std::string fPath) {
     string line;
@@ -93,7 +100,6 @@ void batch(){
     std::string fPath;
     std::string text;
     std::string pattern;
-    string possibleChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
     std::vector<StringSearch*> searchAlgos;
 
@@ -113,38 +119,48 @@ void batch(){
 
     //Run each string search algol 100 times on the given text and pattern and record performance
     //Generate a random string
-    for (int k = 0; k < 5; ++k) {
+    for (int k = 0; k < 1; ++k) {
+
+        pattern = getPatternString(minPatSize + k * stepSize);
+        pattern = "prash";
+        std::cout<< "Searching for pattern : " << pattern << std::endl;
+
+        for (int i = 0; i < 3; ++i) {
+            cout<< "Running " << searchAlgos[i]->getAlgoName()<< endl;
+            auto initTime = std::chrono::high_resolution_clock::now();
+            std::chrono::duration<double, std::milli> avgSeconds = initTime - initTime;
+            for (int j = 0; j < 1000; ++j) {
+
+                auto start = std::chrono::high_resolution_clock::now();
+
+                searchAlgos[i]->init(text, pattern);
+                searchAlgos[i]->search();
+
+                auto end = std::chrono::high_resolution_clock::now();
+                avgSeconds += end - start;
+
+            }
+            //Should write to a csv file
+            std::cout << "Time taken by " << searchAlgos[i]->getAlgoName()
+                      << " for 100 runs with pattern lenght " << pattern.length()
+                      << " and text length " << text.length() << " : " << avgSeconds.count()/1000 << " ms \n\n";
+        }
+    }
+    //Free the memory allocated to search algos
+/*    for (int l = 0; l < searchAlgos.size(); ++l) {
+        delete searchAlgos[l];
+    }*/
+}
+
+string getPatternString(unsigned len) {
+    string possibleChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    string pattern;
+
+    for (int k = 0; k < len; ++k) {
         char c = possibleChars[rand() % possibleChars.length()];
         pattern += c;
     }
-
-    pattern = "prash";
-    std::cout<< "Searching for pattern : " << pattern << std::endl;
-
-    for (int i = 0; i < 3; ++i) {
-        cout<< "Running " << searchAlgos[i]->getAlgoName()<< endl;
-        std::chrono::duration<double, std::milli> avgSeconds;
-        for (int j = 0; j < 1; ++j) {
-
-            auto start = std::chrono::system_clock::now();
-
-            searchAlgos[i]->init(text, pattern);
-            searchAlgos[i]->search();
-
-            auto end = std::chrono::system_clock::now();
-            avgSeconds += end - start;
-
-        }
-        //Should write to a csv file
-        std::cout << "Time taken by " << searchAlgos[i]->getAlgoName()
-                  << " for 100 runs with pattern lenght " << pattern.length()
-                  << " and text length " << text.length() << " : " << avgSeconds.count() << " ms \n\n";
-    }
-
-    //Free the memory allocated to search algos
-    for (int l = 0; l < searchAlgos.size(); ++l) {
-        delete searchAlgos[l];
-    }
+    return pattern;
 }
 
 int main() {

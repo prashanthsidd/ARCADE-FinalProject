@@ -67,6 +67,8 @@ void KMP::search() {
         }
     }
 
+    delete[] lps;
+
 }
 
 std::string KMP::getAlgoName(){
