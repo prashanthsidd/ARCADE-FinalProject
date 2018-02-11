@@ -40,7 +40,7 @@ public:
 
     void gsPreprocess2();
 
-    void search();
+    unsigned long search();
 
     std::string getAlgoName();
 

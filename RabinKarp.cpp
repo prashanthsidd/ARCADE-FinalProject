@@ -55,17 +55,20 @@ unsigned long RabinKarp::updateHash(char outChar, char inChar){
     return currentHash;
 }
 
-void RabinKarp::search(){
+unsigned long RabinKarp::search(){
 
+    unsigned  long matches = 0;
     for (int i = 0; i <= textLen - patternLen; ++i) {
 
         //check for hash and string match
         if (patternHash == currentHash && pattern.compare(0, patternLen, text, i, patternLen) == 0) {
-            std::cout << "string match at pos :: " << i << std::endl;
+//            std::cout << "string match at pos :: " << i << std::endl;
+            matches++;
         }
 
         updateHash(text[i], text[i + patternLen]);
     }
+    return matches;
 }
 
 std::string RabinKarp::getAlgoName(){

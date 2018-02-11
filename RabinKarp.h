@@ -40,7 +40,7 @@ public:
     unsigned long updateHash(char outChar, char inChar);
 
     //  implement match function. Do we need a shift function?
-    void search();
+    unsigned long search();
 
     std::string getAlgoName();
 };

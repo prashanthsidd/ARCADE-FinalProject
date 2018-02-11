@@ -33,14 +33,16 @@ void BoyersMoore::init(std::string& text, std::string& pattern){
 
 }
 
-void BoyersMoore::search(){
+unsigned long BoyersMoore::search(){
     //Start matching
     int alignment = 0, matchIndex;
+    int matches = 0;
     while(alignment <= srcLen - patternLen){
         matchIndex = patternLen - 1;
         while(matchIndex >= 0 && srcString[alignment + matchIndex] == pattern[matchIndex]) matchIndex--;
         if(matchIndex < 0){
-            std::cout << "Match found at pos :: " << alignment << std::endl;
+//            std::cout << "Match found at pos :: " << alignment << std::endl;
+            matches++;
             alignment += s[0];
         }
         else {
@@ -53,6 +55,7 @@ void BoyersMoore::search(){
     delete []f;
     delete []s;
     delete []occ;
+    return matches;
 }
 
 void BoyersMoore::bcPreprocess(){
@@ -112,7 +115,7 @@ std::string BoyersMoore::getAlgoName(){
 }
 
 BoyersMoore::~BoyersMoore() {
-    delete []f;
+    /*delete []f;
     delete []s;
-    delete []occ;
+    delete []occ;*/
 }

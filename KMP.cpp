@@ -42,9 +42,10 @@ void KMP::init(std::string& text, std::string& pattern) {
  * @param text - complete text
  * @param pattern -  pattern to find in text
  */
-void KMP::search() {
+unsigned long KMP::search() {
 
     int m=0,n=0;
+    int matches = 0;
 
     while(m<txtLen){
         if(pattern[n]==text[m]){
@@ -53,7 +54,8 @@ void KMP::search() {
         }
 
         if(n==patLen){
-            std::cout<<"String found at " << m-n <<std::endl;
+//            std::cout<<"String found at " << m-n <<std::endl;
+            matches++;
             n=lps[n-1];
         }
 
@@ -68,7 +70,7 @@ void KMP::search() {
     }
 
     delete[] lps;
-
+    return matches;
 }
 
 std::string KMP::getAlgoName(){

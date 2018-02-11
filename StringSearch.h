@@ -14,7 +14,7 @@ public:
     virtual void init(std::string& text, std::string& pattern) = 0;
 
     //Method for searching the pattern
-    virtual void search() = 0;
+    virtual unsigned long search() = 0;
 
     virtual std::string getAlgoName() = 0;
 };

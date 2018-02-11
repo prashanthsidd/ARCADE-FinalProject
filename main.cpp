@@ -64,7 +64,7 @@ void interactive(){
                 std::cout << "Running Rabin Karp"<< std::endl;
                 RabinKarp rabinKarp;
                 rabinKarp.init(text, pattern);
-                rabinKarp.search();
+                std::cout << "Number of matches :: " << rabinKarp.search() << std::endl;
             }
                 break;
 
@@ -72,7 +72,7 @@ void interactive(){
                 std::cout << "Running KMP "<< std::endl;
                 KMP kmp;
                 kmp.init(text, pattern);
-                kmp.search();
+                std::cout << "Number of matches :: " << kmp.search() << std::endl;
             }
                 break;
 
@@ -80,7 +80,7 @@ void interactive(){
                 std::cout << "Running Boyer Moore "<< std::endl;
                 BoyersMoore boyersMoore;
                 boyersMoore.init(text, pattern);
-                boyersMoore.search();
+                std::cout << "Number of matches :: " << boyersMoore.search() << std::endl;
             }
                 break;
 
@@ -113,23 +113,23 @@ void batch(){
 
     std::cout << "Please provide path of input file:";
     cin >> fPath;
-
-    text = ReadFromFile(fPath);
+    text = ReadFromFile("/home/sid/CLionProjects/ARCADE-FinalProject/data.txt");
+//    text = ReadFromFile(fPath);
     std::cout << text<< std::endl;
 
     //Run each string search algol 100 times on the given text and pattern and record performance
     //Generate a random string
-    for (int k = 0; k < 1; ++k) {
+    for (int k = 0; pattern.length() < maxPatSize; ++k) {
 
         pattern = getPatternString(minPatSize + k * stepSize);
-        pattern = "prash";
+//        pattern = "prash";
         std::cout<< "Searching for pattern : " << pattern << std::endl;
 
         for (int i = 0; i < 3; ++i) {
             cout<< "Running " << searchAlgos[i]->getAlgoName()<< endl;
             auto initTime = std::chrono::high_resolution_clock::now();
             std::chrono::duration<double, std::milli> avgSeconds = initTime - initTime;
-            for (int j = 0; j < 1000; ++j) {
+            for (int j = 0; j < 10; ++j) {
 
                 auto start = std::chrono::high_resolution_clock::now();
 
@@ -143,17 +143,17 @@ void batch(){
             //Should write to a csv file
             std::cout << "Time taken by " << searchAlgos[i]->getAlgoName()
                       << " for 100 runs with pattern lenght " << pattern.length()
-                      << " and text length " << text.length() << " : " << avgSeconds.count()/1000 << " ms \n\n";
+                      << " and text length " << text.length() << " : " << avgSeconds.count()/10 << " ms \n\n";
         }
     }
     //Free the memory allocated to search algos
-/*    for (int l = 0; l < searchAlgos.size(); ++l) {
+    for (int l = 0; l < searchAlgos.size(); ++l) {
         delete searchAlgos[l];
-    }*/
+    }
 }
 
 string getPatternString(unsigned len) {
-    string possibleChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    string possibleChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 ?\",.!\'-";
     string pattern;
 
     for (int k = 0; k < len; ++k) {

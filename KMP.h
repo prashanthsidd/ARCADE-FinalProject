@@ -30,7 +30,7 @@ public:
      */
     void init(std::string& text, std::string& pattern);
 
-    void search();
+    unsigned long search();
 
     std::string getAlgoName();
 
