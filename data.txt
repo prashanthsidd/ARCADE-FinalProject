@@ -1315,7 +1315,7 @@ We had the carriage to ourselves save for an immense litter of papers which Holm
 
 "I could hardly imagine a more damning case," I remarked. "If ever circumstantial evidence pointed to a criminal it does so here."
 
-"Circumstantial evidence is a very tricky thing," answered Holmes thoughtfully. "It may seem to point very straight to one thing, but if you shift your own point of view a little, you may find it pointing in an equally uncompromising manner to something entirely different. It must be confessed, however, that the case looks exceedingly grave against the young man, and it is very possible that he is indeed the culprit. There are several people in the neighbourhood, however, and among them Miss Turner, the daughter of the neighbouring landowner, who believe in his innocence, and who have retained Lestrade, whom you may recollect in connection with the Study in Scarlet, to work out the case in his interest. Lestrade, being rather puzzled, has referred the case to me, and hence it is that two middle-aged gentlemen are flying westward at fifty miles an hour instead of quietly digesting their breakfasts at home."
+"Circumstantial evidence is a very tricky thing," answered Holmes thoughtfully. "It may seem to point very straight to one thing, but if you shift your own point of view a little, you may find it pointing in an equally uncompromising manner to something entirely different. It must be confessed, however, that the case looks exceedingly grave against the young man, and it is very possible that he is indeed the culprit. There are several people in the neighbourhood, however, and among them Miss Turner, the daughter of the neighbouring landowner, who believe in his innocence retained Lestrade, whom you may recollect in connection with the Study in Scarlet, to work out the case in his interest. Lestrade, being rather puzzled, has referred the case to me, and hence it is that two middle-aged gentlemen are flying westward at fifty miles an hour instead of quietly digesting their breakfasts at home."
 
 "I am afraid," said I, "that the facts are so obvious that you will find little credit to be gained out of this case."
 
@@ -1591,7 +1591,7 @@ Having left Lestrade at his rooms, we drove to our hotel, where we found lunch u
 
 "Pray do so."
 
-"Well, now, in considering this case there are two points about young McCarthy's narrative which struck us both instantly, although they impressed me in his favour and you against him. One was the fact that his father should, according to his account, cry 'Cooee!' before seeing him. The other was his singular dying reference to a rat. He mumbled several words, you understand, but that was all that caught the son's ear. Now from this double point our research must commence, and we will begin it by presuming that what the lad says is absolutely true."
+"Well, now, in considering this case there are two points about young McCarthy's narrative which struck us both instantly, although they impressed me in his favour and you against him. One was the fact that his father should, according to his account, cry 'Cooee!' before seeing him. The other was his singular dying reference to a rat. you understand, but that was all that caught the son's ear. Now from this double point our research must commence, and we will begin it by presuming that what the lad says is absolutely true."
 
 "What of this 'Cooee!' then?"
 

@@ -46,10 +46,14 @@ unsigned long BoyersMoore::search(){
             alignment += s[0];
         }
         else {
-            alignment += (matchIndex - occurance(srcString[alignment + matchIndex])) > s[matchIndex + 1]
-                         ? matchIndex - occurance(srcString[alignment + matchIndex])
-                         : s[matchIndex + 1];
+
+            int skipStep = s[matchIndex + 1];
+            int misMatchChar = (matchIndex - occurance(srcString[alignment + matchIndex]));
+            alignment += std::max(skipStep, misMatchChar);
+
+//            std::cout<< alignment << "   " << (matchIndex - occurance(srcString[alignment + matchIndex]))  << " " << s[matchIndex + 1]<< std::endl;
         }
+//        std::cout<<alignment << std::endl;
     }
 
     delete []f;
@@ -60,12 +64,12 @@ unsigned long BoyersMoore::search(){
 
 void BoyersMoore::bcPreprocess(){
     //Initialize with zero
-    for (int i = 0; i < alphaSize; ++i) {
+    for (int i = 0; i < alphaSize; i++) {
         occ[i] = -1;
     }
 
     //Store the last index of each character in pattern
-    for (int j = 0; j < patternLen; ++j) {
+    for (int j = 0; j < patternLen; j++) {
         occ[pattern[j]] = j;
     }
 }
@@ -108,6 +112,11 @@ void BoyersMoore::gsPreprocess2(){
         if(s[i] == 0) s[i] = borderIndex;
         if(i == borderIndex) borderIndex = f[borderIndex];
     }
+
+/*        std::cout << "f  s " << std::endl;
+    for (int i = 0; i <= patternLen; ++i) {
+        std::cout << f[i] << " " << s[i] << std::endl;
+    }*/
 }
 
 std::string BoyersMoore::getAlgoName(){

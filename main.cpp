@@ -9,33 +9,43 @@
 #include "RabinKarp.h"
 
 
-#define stepSize 5
-#define minPatSize 5
-#define maxPatSize 20
+#define stepSize 10
+#define minPatSize 10
+#define maxPatSize 100
+#define inFilePath "data.txt"
+#define outFilePath "out.csv"
+#define avgRuns 50
 
 using namespace std;
 
 class srcPatLenError{};
 
+std::string fText;
+
+std::string validStrings[] = {"me", "the", "come", "employee", "Spaulding said", "for", "said" ,"for I had quite persuaded"};
+
+
 string getPatternString(unsigned len);
 
-string ReadFromFile (std::string fPath) {
+string getPatternFromReadText(unsigned i);
+
+void ReadFromFile () {
     string line;
-    string entireText;
-    ifstream myfile (fPath);
+
+    if(fText.length()) return;
+
+    ifstream myfile (inFilePath);
     if (myfile.is_open())
     {
         while ( getline (myfile,line) )
         {
-            entireText+=line + " ";
+            fText+=line + " ";
         }
         myfile.close();
 
     }
 
     else cout << "Unable to open file. ";
-
-    return entireText;
 
 }
 
@@ -57,6 +67,11 @@ void interactive(){
         stringstream(inp) >> algo;
 
         std::cout<< "\n\n";
+
+        //Time the run
+        auto initTime = std::chrono::high_resolution_clock::now();
+        std::chrono::duration<double, std::milli> dur = initTime - initTime;
+        auto start = std::chrono::high_resolution_clock::now();
 
         //check for algol
         switch (algo){
@@ -89,7 +104,9 @@ void interactive(){
             default: std::cout << "Invalid search algorithm: Terminating..."<< std::endl;
                 return;
         }
-
+        auto end = std::chrono::high_resolution_clock::now();
+        dur = end - start;
+        cout<< "Time taken : " << dur.count();
         std::cout << "\n\n";
 
     }
@@ -97,8 +114,6 @@ void interactive(){
 
 void batch(){
     //Get a file name. Read it and generate random strings/patterns to be searched
-    std::string fPath;
-    std::string text;
     std::string pattern;
 
     std::vector<StringSearch*> searchAlgos;
@@ -107,49 +122,55 @@ void batch(){
     searchAlgos.push_back(new RabinKarp()) ;
     searchAlgos.push_back(new KMP()) ;
 
-//    searchAlgos[1] = RabinKarp();
 
-//    searchAlgos[2] = KMP();
+    std::cout << "Reading from file :" << inFilePath;
 
-    std::cout << "Please provide path of input file:";
-    cin >> fPath;
-    text = ReadFromFile("/home/sid/CLionProjects/ARCADE-FinalProject/data.txt");
-//    text = ReadFromFile(fPath);
-    std::cout << text<< std::endl;
-
+    //Open outputfile.
+    ofstream outF;
+    outF.open(outFilePath, ios::app);
+    outF << "Text Length, Pattern Length, Time(ms), Algorithm \n";
     //Run each string search algol 100 times on the given text and pattern and record performance
     //Generate a random string
     for (int k = 0; pattern.length() < maxPatSize; ++k) {
+//    for (int k = 0; k < 8; ++k) {
+                pattern = getPatternString(minPatSize + k * stepSize);
+//        pattern = validStrings[k];
 
-        pattern = getPatternString(minPatSize + k * stepSize);
-//        pattern = "prash";
         std::cout<< "Searching for pattern : " << pattern << std::endl;
 
         for (int i = 0; i < 3; ++i) {
             cout<< "Running " << searchAlgos[i]->getAlgoName()<< endl;
+
             auto initTime = std::chrono::high_resolution_clock::now();
             std::chrono::duration<double, std::milli> avgSeconds = initTime - initTime;
-            for (int j = 0; j < 10; ++j) {
+
+            unsigned  long matches = 0;
+
+            for (int j = 0; j < avgRuns; ++j) {
 
                 auto start = std::chrono::high_resolution_clock::now();
 
-                searchAlgos[i]->init(text, pattern);
-                searchAlgos[i]->search();
+                searchAlgos[i]->init(fText, pattern);
+                matches += searchAlgos[i]->search();
 
                 auto end = std::chrono::high_resolution_clock::now();
                 avgSeconds += end - start;
 
             }
-            //Should write to a csv file
-            std::cout << "Time taken by " << searchAlgos[i]->getAlgoName()
-                      << " for 100 runs with pattern lenght " << pattern.length()
-                      << " and text length " << text.length() << " : " << avgSeconds.count()/10 << " ms \n\n";
+
+            outF << fText.length() << "," << pattern.length() << "," << avgSeconds.count() / avgRuns << "," << matches / avgRuns << "," << searchAlgos[i]->getAlgoName()<<"\n";
         }
     }
+    outF.close();
     //Free the memory allocated to search algos
     for (int l = 0; l < searchAlgos.size(); ++l) {
         delete searchAlgos[l];
     }
+}
+
+string getPatternFromReadText(unsigned len) {
+    int rangeMax = fText.length() - len;
+    return fText.substr(rand() % rangeMax, len);
 }
 
 string getPatternString(unsigned len) {
@@ -172,9 +193,13 @@ int main() {
         stringstream(inp) >> mode;
 
         switch (mode){
-            case 1: interactive();
+
+            case 1:
+                interactive();
                 break;
-            case 2: batch();
+            case 2:
+                ReadFromFile();
+                batch();
                 break;
             case 3 : return 0;
         }
