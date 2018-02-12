@@ -27,3 +27,6 @@ from file is considered to be a pattern </li>
 
 </ul>
 
+### Class Diagram:
+
+<img alt="class diagram" src="ClassDg.png"></img>
